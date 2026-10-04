@@ -1,0 +1,20 @@
+{
+  "original_text": "Theo chính sách v2024, nhân viên chính thức được nghỉ 15 ngày phép năm có lương.",
+  "enriched_text": "Nguồn: policy_demo.md, chủ đề: chính sách nghỉ phép.\nChính sách v2024 quy định rằng nhân viên chính thức được hưởng 15 ngày phép năm có lương. Đây là một quyền lợi dành cho nhân viên trong năm 2024.\nNhân viên chính thức được nghỉ bao nhiêu ngày phép năm theo chính sách v2024?\nChính sách v2024 có ảnh hưởng gì đến quyền lợi của nhân viên?\nCó phải tất cả nhân viên đều được hưởng 15 ngày phép năm có lương không?\n\nTheo chính sách v2024, nhân viên chính thức được nghỉ 15 ngày phép năm có lương.",
+  "summary": "Chính sách v2024 quy định rằng nhân viên chính thức được hưởng 15 ngày phép năm có lương. Đây là một quyền lợi dành cho nhân viên trong năm 2024.",
+  "hypothesis_questions": [
+    "Nhân viên chính thức được nghỉ bao nhiêu ngày phép năm theo chính sách v2024?",
+    "Chính sách v2024 có ảnh hưởng gì đến quyền lợi của nhân viên?",
+    "Có phải tất cả nhân viên đều được hưởng 15 ngày phép năm có lương không?"
+  ],
+  "auto_metadata": {
+    "topic": "chính sách nghỉ phép",
+    "entities": [],
+    "category": "policy",
+    "language": "vi",
+    "source": "policy_demo.md",
+    "parent_id": "demo_parent",
+    "enrichment_status": "success"
+  },
+  "method": "combined"
+}
