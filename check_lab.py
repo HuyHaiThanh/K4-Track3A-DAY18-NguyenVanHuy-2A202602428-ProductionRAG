@@ -9,6 +9,7 @@ import json
 import os
 import sys
 import subprocess
+import math
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -60,16 +61,25 @@ def run_tests() -> tuple[int, int]:
     """Run pytest and return (passed, total)."""
     try:
         import re
+        test_env = dict(os.environ)
+        test_env["OPENAI_API_KEY"] = ""
+        for name in ("RUN_M2_LIVE", "RUN_M3_LIVE", "RUN_M4_LIVE", "RUN_M5_LIVE"):
+            test_env[name] = "0"
         result = subprocess.run(
             [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=no", "-q"],
-            capture_output=True, text=True, timeout=120, encoding="utf-8", errors="replace"
+            capture_output=True, text=True, timeout=300, encoding="utf-8", errors="replace",
+            env=test_env,
         )
         lines = result.stdout.strip().split("\n")
         summary = lines[-1] if lines else ""
         m_pass = re.search(r"(\d+)\s+passed", summary)
         m_fail = re.search(r"(\d+)\s+failed", summary)
+        m_error = re.search(r"(\d+)\s+errors?", summary)
         passed = int(m_pass.group(1)) if m_pass else 0
         failed = int(m_fail.group(1)) if m_fail else 0
+        failed += int(m_error.group(1)) if m_error else 0
+        if result.returncode and failed == 0:
+            failed = 1
         total = passed + failed
         return passed, total
     except Exception as e:
@@ -99,7 +109,30 @@ def validate():
 
     # 3. Analysis
     print("\n📝 Analysis:")
-    check_file("analysis/failure_analysis.md")
+    if not check_file("analysis/failure_analysis.md"):
+        errors += 1
+    else:
+        with open("analysis/failure_analysis.md", encoding="utf-8") as f:
+            analysis_text = f.read()
+        if "(copy template)" in analysis_text or "[Họ và tên]" in analysis_text:
+            print("  ❌ Failure analysis vẫn còn template")
+            errors += 1
+
+    if os.path.exists("reports/ragas_report.json"):
+        try:
+            with open("reports/ragas_report.json", encoding="utf-8") as f:
+                report = json.load(f)
+        except (ValueError, OSError):
+            report = {}
+        metric_names = ("faithfulness", "answer_relevancy", "context_precision", "context_recall")
+        if (report.get("evaluation_status") != "success" or report.get("num_questions") != 20
+                or len(report.get("per_question", [])) != 20 or len(report.get("failures", [])) != 5
+                or any(report.get("valid_counts", {}).get(name) != 20 for name in metric_names)
+                or any(not isinstance(report.get("aggregate", {}).get(name), (int, float))
+                       or not math.isfinite(report["aggregate"][name])
+                       or not 0 <= report["aggregate"][name] <= 1 for name in metric_names)):
+            print("  ❌ Cần báo cáo RAGAS thành công đủ 20 câu và Bottom-5")
+            errors += 1
 
     # 4. Individual reflections
     print("\n👤 Individual reflections:")
@@ -117,6 +150,7 @@ def validate():
             print(f"  ✅ {r}")
     else:
         print(f"  ⚠️  Chưa có file reflection cá nhân (đặt tại {ref_dir}/reflection_[HọTên].md hoặc analysis/reflection_[HọTên].md)")
+        errors += 1
 
     # 5. TODO count
     print("\n🔧 TODO markers:")
@@ -125,15 +159,19 @@ def validate():
         print("  ✅ Không còn TODO nào")
     else:
         print(f"  ⚠️  Còn {todo_count} TODO chưa implement")
+        errors += 1
 
     # 6. Tests
     print("\n🧪 Auto-tests:")
     passed, total = run_tests()
     if total > 0:
         pct = passed / total * 100
-        print(f"  {'✅' if pct >= 80 else '⚠️'} {passed}/{total} tests passed ({pct:.0f}%)")
+        print(f"  {'✅' if pct == 100 else '⚠️'} {passed}/{total} tests passed ({pct:.0f}%)")
+        if passed != total:
+            errors += 1
     else:
         print("  ⚠️  Không chạy được tests")
+        errors += 1
 
     # 7. Summary
     print("\n" + "=" * 50)
@@ -142,7 +180,8 @@ def validate():
     else:
         print(f"❌ Có {errors} lỗi. Sửa trước khi nộp.")
     print("=" * 50)
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
-    validate()
+    sys.exit(validate())

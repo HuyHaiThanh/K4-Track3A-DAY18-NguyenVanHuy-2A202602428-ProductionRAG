@@ -11,6 +11,9 @@ import json
 import os
 import sys
 import time
+import argparse
+from contextlib import redirect_stdout, redirect_stderr
+from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -37,7 +40,7 @@ def main():
     print("-" * 40)
     from src.pipeline import build_pipeline, evaluate_pipeline
     search, reranker = build_pipeline()
-    prod_results = evaluate_pipeline(search, reranker)
+    evaluate_pipeline(search, reranker)
 
     # Ensure reports are located in reports/
     for f in ["ragas_report.json", "naive_baseline_report.json"]:
@@ -74,4 +77,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Run baseline and production RAG")
+    parser.add_argument("--log", type=Path, help="Capture stdout/stderr as UTF-8 inside Python")
+    args = parser.parse_args()
+    if args.log:
+        args.log.parent.mkdir(parents=True, exist_ok=True)
+        with args.log.open("w", encoding="utf-8") as output:
+            with redirect_stdout(output), redirect_stderr(output):
+                main()
+    else:
+        main()
