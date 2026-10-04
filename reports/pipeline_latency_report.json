@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-04",
+  "device": "cpu",
+  "num_questions": 20,
+  "baseline_build_seconds": 58.164249599998584,
+  "production_build": {
+    "num_documents": 26,
+    "num_children": 121,
+    "num_parents": 26,
+    "enrichment_counts": {
+      "success": 121
+    },
+    "timings": {
+      "chunking_seconds": 0.06408749999536667,
+      "enrichment_seconds": 343.64387620000343,
+      "index_seconds": 89.00889050000114,
+      "reranker_load_seconds": 8.711491699999897,
+      "ragas_seconds": 95.94529240000702
+    }
+  },
+  "baseline_query": {
+    "retrieval": {
+      "mean_ms": 263.1508999998914,
+      "min_ms": 152.6603999955114,
+      "max_ms": 681.0067999904277,
+      "p95_ms": 329.04640000197105
+    },
+    "generation": {
+      "mean_ms": 1281.3657700004114,
+      "min_ms": 815.1136999949813,
+      "max_ms": 2828.857999993488,
+      "p95_ms": 2438.8839000021107
+    }
+  },
+  "production_query": {
+    "retrieval": {
+      "mean_ms": 261.98701500179595,
+      "min_ms": 171.40680000011344,
+      "max_ms": 365.3651000058744,
+      "p95_ms": 307.3648999998113
+    },
+    "rerank": {
+      "mean_ms": 7379.586529999506,
+      "min_ms": 6117.328899999848,
+      "max_ms": 10024.873599992134,
+      "p95_ms": 9058.477300000959
+    },
+    "generation": {
+      "mean_ms": 1425.7126799988328,
+      "min_ms": 924.6720999944955,
+      "max_ms": 3122.668899988639,
+      "p95_ms": 2353.9432999968994
+    }
+  },
+  "note": "Per-query rerank timing uses the preloaded model; end-to-end query adds retrieval and generation."
+}

@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-04",
+  "num_questions": 20,
+  "baseline_status": "success",
+  "production_status": "success",
+  "metrics": [
+    {
+      "metric": "faithfulness",
+      "baseline": 0.7965909090909091,
+      "production": 0.8444444444444443,
+      "delta": 0.047853535353535204
+    },
+    {
+      "metric": "answer_relevancy",
+      "baseline": 0.49198786382986776,
+      "production": 0.6771147181270686,
+      "delta": 0.18512685429720083
+    },
+    {
+      "metric": "context_precision",
+      "baseline": 0.9249999999404167,
+      "production": 0.9291666666081249,
+      "delta": 0.004166666667708152
+    },
+    {
+      "metric": "context_recall",
+      "baseline": 0.8833333333333332,
+      "production": 0.95,
+      "delta": 0.06666666666666676
+    }
+  ],
+  "method": "Same test_set, generator model/prompt/temperature and RAGAS settings; whole-pipeline comparison, not module ablation."
+}
