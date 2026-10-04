@@ -1,0 +1,55 @@
+{
+  "aggregate": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8996144350596178,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+  },
+  "num_questions": 1,
+  "evaluation_status": "success",
+  "requested_questions": 1,
+  "valid_counts": {
+    "faithfulness": 1,
+    "answer_relevancy": 1,
+    "context_precision": 1,
+    "context_recall": 1
+  },
+  "error": null,
+  "per_question": [
+    {
+      "question": "Theo chính sách v2024, nhân viên chính thức được nghỉ bao nhiêu ngày phép năm?",
+      "answer": "Theo chính sách v2024, nhân viên chính thức được nghỉ 15 ngày phép năm có lương.",
+      "contexts": [
+        "Chính sách nghỉ phép năm v2024: mỗi nhân viên chính thức được hưởng 15 ngày phép năm có lương."
+      ],
+      "ground_truth": "Nhân viên chính thức được nghỉ 15 ngày phép năm có lương theo chính sách v2024.",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8996144350596178,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0
+    }
+  ],
+  "failures": [
+    {
+      "question": "Theo chính sách v2024, nhân viên chính thức được nghỉ bao nhiêu ngày phép năm?",
+      "answer": "Theo chính sách v2024, nhân viên chính thức được nghỉ 15 ngày phép năm có lương.",
+      "contexts": [
+        "Chính sách nghỉ phép năm v2024: mỗi nhân viên chính thức được hưởng 15 ngày phép năm có lương."
+      ],
+      "ground_truth": "Nhân viên chính thức được nghỉ 15 ngày phép năm có lương theo chính sách v2024.",
+      "score": 0.9749036087399044,
+      "metrics": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8996144350596178,
+        "context_precision": 0.9999999999,
+        "context_recall": 1.0
+      },
+      "worst_metric": "answer_relevancy",
+      "worst_score": 0.8996144350596178,
+      "diagnosis": "Answer may not address the question directly",
+      "suggested_fix": "Improve prompt to answer the question directly",
+      "error_tree": "Output incorrect? → Context sufficient and current? → Relevant chunks retrieved? → Inspect indicated module",
+      "diagnosis_note": "Hypothesis from metrics; verify using answer and contexts"
+    }
+  ]
+}
