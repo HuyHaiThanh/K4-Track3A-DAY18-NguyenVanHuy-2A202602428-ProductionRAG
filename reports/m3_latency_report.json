@@ -1,0 +1,83 @@
+{
+  "model": "BAAI/bge-reranker-v2-m3",
+  "num_chunks": 121,
+  "top_k": 3,
+  "warm_runs": 3,
+  "latency_target_ms": 150,
+  "note": "Warm timings exclude loading and first inference; only reranking is timed.",
+  "queries": [
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "num_candidates": 20,
+      "first_call_ms": 15241.254099993967,
+      "warm_latency": {
+        "avg_ms": 6271.474800004701,
+        "min_ms": 5931.104200004484,
+        "max_ms": 6523.655500001041
+      },
+      "meets_150ms_target": false,
+      "hybrid_top3_sources": [
+        "nghi_phep_khong_luong.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_nam_v2024.md"
+      ],
+      "reranked_top3": [
+        {
+          "rank": 0,
+          "score": 0.9955641031265259,
+          "source": "nghi_phep_nam_v2023.md",
+          "text": "## Số ngày phép năm\nMỗi nhân viên chính thức được hưởng **12 ngày phép năm** có lương. Số ngày phép được tính theo năm dương lịch từ 01/01 đến 31/12. Nhân viên vào công ty giữa năm sẽ được tính pro-rata theo số tháng làm việc thực tế.\n\n"
+        },
+        {
+          "rank": 1,
+          "score": 0.991520345211029,
+          "source": "nghi_phep_nam_v2024.md",
+          "text": "## Số ngày phép năm\nMỗi nhân viên chính thức được hưởng **15 ngày phép năm** có lương, tăng từ 12 ngày so với chính sách năm 2023. Chính sách này thay thế hoàn toàn phiên bản 1.0 ban hành ngày 01/01/2023.\n\n"
+        },
+        {
+          "rank": 2,
+          "score": 0.9662536978721619,
+          "source": "nghi_phep_khong_luong.md",
+          "text": "## Điều kiện áp dụng\nNhân viên chính thức đã hết phép năm có thể xin nghỉ phép không lương. Thời gian nghỉ phép không lương tối đa là **30 ngày** trong một năm dương lịch. Nghỉ phép không lương không được tính thâm niên.\n\n"
+        }
+      ]
+    },
+    {
+      "question": "Bao lâu phải đổi mật khẩu một lần?",
+      "num_candidates": 20,
+      "first_call_ms": 6387.7305000060005,
+      "warm_latency": {
+        "avg_ms": 6386.2601333288085,
+        "min_ms": 6300.91769999126,
+        "max_ms": 6505.34350000089
+      },
+      "meets_150ms_target": false,
+      "hybrid_top3_sources": [
+        "mat_khau_v2.md",
+        "mat_khau_v1.md",
+        "mat_khau_v1.md"
+      ],
+      "reranked_top3": [
+        {
+          "rank": 0,
+          "score": 0.9671745896339417,
+          "source": "mat_khau_v2.md",
+          "text": "## Chu kỳ thay đổi\nMật khẩu phải được thay đổi **mỗi 120 ngày**. Hệ thống tự động nhắc nhở trước 14 ngày. Mật khẩu mới không được trùng với 5 mật khẩu gần nhất. Tài khoản bị khóa sau 5 lần nhập sai liên tiếp.\n\n"
+        },
+        {
+          "rank": 1,
+          "score": 0.9670947790145874,
+          "source": "mat_khau_v1.md",
+          "text": "## Chu kỳ thay đổi\nMật khẩu phải được thay đổi **mỗi 90 ngày**. Hệ thống sẽ tự động nhắc nhở trước 7 ngày. Mật khẩu mới không được trùng với 3 mật khẩu gần nhất.\n\n"
+        },
+        {
+          "rank": 2,
+          "score": 0.047698114067316055,
+          "source": "mat_khau_v1.md",
+          "text": "## Lưu ý\nChính sách này đã được thay thế bởi Chính sách mật khẩu v2.0 từ ngày 01/07/2024. Vui lòng tham khảo phiên bản mới để biết quy định hiện hành.\n"
+        }
+      ]
+    }
+  ],
+  "device": "cpu"
+}
